@@ -1,18 +1,10 @@
-## Getting Started
+# Primer Práctica Programación Concurrente
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+### Saludo Concurrente
 
-## Folder Structure
+- Se utilizó el lenguaje de JAVA para realizar el siguiente código
+---
+### Para abrir el código: 
+1.- Abrir [src](https://github.com/Chersito/Act1_SaludoConcurrente/tree/main/src)
+2.- Código en el [SaludoConcurrente](https://github.com/Chersito/Act1_SaludoConcurrente/blob/main/src/SaludoConcurrente.java)
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
