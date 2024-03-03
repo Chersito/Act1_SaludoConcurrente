@@ -3,7 +3,20 @@ import java.time.LocalTime;
 public class SaludoConcurrente extends Thread {
     
     public void run() {
-        System.out.println("    Hilo: Nuevo hilo " + getName() + " (" + LocalTime.now() + ")");
+        System.out.println("    Mensaje del "+ getName()+": Nuevo hilo " + " (" + LocalTime.now() + ")");
+        
+        // @SuppressWarnings() se utiliza para suprimir advertencias específicas del compilador
+        // "deprecation" se refiere a advertencias sobre el uso de elementos obsoletos (métodos o clases )
+        // Se está suprimiendo la advertencia de obsolescencia para el método getId()
+        @SuppressWarnings("deprecation")
+        // getId()btiene el identificador único del hilo actual
+        long id = getId();
+        // getPriority() se obtiene la prioridad del hilo actual
+        int prioridad = getPriority();
+        // Obtiene el estado actual del hilo ("NEW", "RUNNABLE", "BLOCKED", "WAITING", "TIMED_WAITING", o "TERMINATED")
+        Thread.State estado = getState();
+        // Obtiene el grupo de hilos al que pertenece el hilo actual.
+        ThreadGroup grupo = getThreadGroup();
         
         try {
             Thread.sleep(2000);
@@ -12,18 +25,63 @@ public class SaludoConcurrente extends Thread {
         }
         
         System.out.println("    Hola soy el hilo " + getName());
-        System.out.println("    Hilo " + getName() + " terminó (" + LocalTime.now() + ")");
+        System.out.println("---> "+getName()+": " + getName() + " terminó ejecución a las (" + LocalTime.now() + ")");
+        
+        // Son las instrucciones solicitadas en el Ejercicio 2 a mostrar en consola
+        System.out.println(getName()+": Hola soy un hilo");
+        System.out.println(getName()+": Mi nombre = " + getName());
+        System.out.println(getName()+": ID: " + id);
+        System.out.println(getName()+": Prioridad: " + prioridad);
+        System.out.println(getName()+": Estado: " + estado);
+        System.out.println(getName()+": Grupo al que pertenece: " + grupo.getName()+"\n");
     }
 
-    public static void main(String[] args) {
-        System.out.println("main: inicia ejecución a las " + LocalTime.now());
+        // Método para mostrar el Estado de los Hilos
+    public static void mostrarEstadoHilos(){
+        System.out.println("main---> Estado de los hilos: ");
+        // Mostrar el estado de los hilos ejecutados actuales
+        System.out.println("        main: hilo1 = " + Thread.currentThread().getState());
+        System.out.println("        main: hilo2 = " + Thread.currentThread().getState());
+        // Devuelve el número total de hilos activos en el grupo de subprocesos actual
+        System.out.println("        main: hilos activos = " + Thread.activeCount());
+
+    }
+    
+// Método main se agrega "throws InterruptedException"
+// Significa que ese método puede verse interrumpido mientras espera
+// Asegurando de que el código que lo llama sea consciente de que puede ocurrir una interrupción
+// Y que debe manejarla apropiadamente
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println("\nmain: inicia ejecución a las " + LocalTime.now());
+        System.out.println("main: creando hilos\n");
+
+        // Se llama al método mostrarEstadoHilos() de arriba
+        mostrarEstadoHilos();
 
         SaludoConcurrente hilo1 = new SaludoConcurrente();
         SaludoConcurrente hilo2 = new SaludoConcurrente();
-
-        hilo1.start();
-        hilo2.start();
         
-        System.out.println("main: termina ejecución a las " + LocalTime.now());
+        hilo1.setPriority(Thread.MIN_PRIORITY); // Establecer a la mínima (1)
+        hilo2.setPriority(Thread.MAX_PRIORITY); // Establecer a la máxima (10)
+
+        // Cambiar el nombre de los hilos
+        hilo1.setName("Hilo1");
+        hilo2.setName("Hilo2");
+
+        System.out.println("\nmain: Ejecutando el  Hilo1...");
+        hilo1.start();
+        hilo1.join();   // Espera a que el hilo1 termine antes de continuar
+        
+        // Se llama al método mostrarEstadoHilos() de arriba
+        mostrarEstadoHilos();
+        
+        System.out.println("\nmain: Ejecutando el  Hilo2...");
+        hilo2.start();
+        hilo2.join();   // Espera a que el hilo2 termine antes de continuar
+
+        // Se llama al método mostrarEstadoHilos() de arriba
+        mostrarEstadoHilos();
+
+        System.out.println("\nmain: termina ejecución a las " + LocalTime.now());
     }
 }
