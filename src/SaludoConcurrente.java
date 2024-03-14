@@ -4,7 +4,9 @@ import java.time.LocalTime;
 // Clase que extiende de Thread, se pueden crear hilos
 public class SaludoConcurrente extends Thread {
     
-    // Sobrescribe el método run(), define el trabajo del hilo cuando sea inicializado
+    // Se sobreescribe el método run
+    @Override
+    // Método run(), define el trabajo del hilo cuando sea inicializado
     public void run() {
         // Por default el hilo se llama Thread-#, por eso getName() obtenemos ese nombre
         System.out.println("    Mensaje del "+ getName()+": Nuevo hilo " + " (" + LocalTime.now() + ")");
