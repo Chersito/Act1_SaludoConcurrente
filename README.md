@@ -1,6 +1,6 @@
 # Programación Concurrente
 
-## Primer Práctica - Saludo Concurrente
+## Saludo Concurrente
 
 - Se utilizó el lenguaje de JAVA para realizar el siguiente código
 
